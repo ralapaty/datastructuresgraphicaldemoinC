@@ -1,0 +1,187 @@
+                            BINARY TREE
+                            ***********
+
+             A binary tree is a finite set of elements that is either
+empty or is partitioned into three disjoint subsets. The first subset
+contains a single element called the root of the tree. The other  two
+subsets  are  themselves  binary  trees,called  the  left  and  right 
+subtrees of the original tree. A left or right subtree can  be empty.
+Each element of a binary tree is called a node of the tree.
+             If A is root of  a binary tree and B is the root of  its
+left or  right  subtree,then A is said to  be the  father of B and is 
+said  to be the left or  right son of A. A  node that has no  sons is 
+called a leaf. Two nodes are brothers if they are left and right sons
+of the same father.
+             If every nonleaf node in a binary tree has nonempty left
+and right  subtrees,the  tree  is  termed  a  strictly  binary  tree.             
+A strictly binary tree with n leaves always contains 2n-1 nodes.
+             Common operation is to 'traverse' a binary tree;that is,
+to pass through the tree,enumerating  each of its nodes once. We  may
+simply wish to print the contents of each node as we enumerate it, or
+we may wish to process it in  some other fashion. In  either case, we
+speak of visiting each node as it is enumerated.
+            The order in which the nodes of a linear list are visited
+in a traversal is clearly form first to last.However,there is no such
+natural linear order for the nodes of a tree.Thus,different orderings
+are used for traversal in different cases. We shall  define  three of
+these traversal methods.In each of these methods,nothing need be done
+to  traverse  an empty  binary tree. The  methods   are  all  defined 
+recursively,so that traversing its left and right subtrees. The  only
+difference  among  the  methods  is  the  order  in which these three
+operations are performed.
+           To traverse a nonempty binary tree in preorder
+   We perform the follwing three operations:
+      1.Visit the root.
+      2.Traverse the left subtree in preorder.
+      3.Traverse the right subtree in preorder.
+
+   To traverse a nonempty binary tree in inorder:
+      1.Traverse the left subtree in inorder.
+      2.Visit the root.
+      3.Traverse the right subtree in inorder.
+
+   To traverse a nonempty binay tree in postorder:
+      1.Traverse the left subtree in postorder.
+      2.Traverse the right subtree in postorder.
+      3.Visit the root.
+
+
+/* Example for binary tree creation and traversals */
+
+#include<stdio.h>
+#include<conio.h>
+#include<alloc.h>
+
+/*Binary tree structure definition */
+
+struct node
+{
+int info;
+struct node *left,*right;
+};
+
+/* Binary tree preorder travarsal */
+
+void preorder(node *p)
+{
+
+  if(p==0)
+  return;
+
+  printf("%d ",p->info);
+  preorder(p->left);
+  preorder(p->right);
+
+}
+
+/* Binary tree inorder traversal */
+
+void inorder(node *p)
+{
+
+  if(p==0)
+  return;
+
+  inorder(p->left);
+  printf("%d ",p->info);
+  inorder(p->right);
+
+}
+
+/*binary tree postorder traversal */
+
+void postorder(node *p)
+{
+
+   if(p==0)
+   return;
+
+   postorder(p->left);
+   postorder(p->right);
+   printf("%d ",p->info);
+
+}
+
+/* Binary tree creation */
+
+node *create(node *head)
+{
+  node *p,*q;
+  int x;
+
+   printf("Enter info ");
+   scanf("%d",&x);
+
+  if(head==0)
+  {
+    head=(node *)malloc(sizeof(node));
+    head->info=x;
+    head->left=0;
+    head->right=0;
+    
+  }
+  
+
+  while(1)
+  {
+    p=head;
+
+    printf("Enter info(0 exit) ");
+    scanf("%d",&x);
+
+   if(x==0)
+   break;
+   while(p!=0&&p->info!=x)
+   {
+      q=p;
+
+      if(p->info>x)
+      p=p->left;
+      else
+      p=p->right;
+   }
+    if(q->info>x)
+    {
+     q->left=(node*)malloc(sizeof(node));
+     q->left->info=x;
+     q->left->left=0;
+     q->left->right=0;
+    }
+
+    if(q->info<x)
+    {
+      q->right=(node*)malloc(sizeof(node));
+      q->right->info=x;
+      q->right->left=0;
+      q->right->right=0;
+    }
+
+    if(q->info==x)
+    {
+        printf("Duplicate Node");
+    }
+  }
+  return head;
+}
+
+/* Binary tree example */
+
+main()
+{
+  node head=0;
+
+ clrscr();
+
+ head=create(head);
+
+        printf("\npreorder " );
+        preorder(head);
+
+        printf("\ninorder ");
+        inorder(head);
+
+        printf("\npostorder ");
+        postorder(head);
+
+ getch();
+ }

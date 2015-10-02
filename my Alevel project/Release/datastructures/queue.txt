@@ -1,0 +1,113 @@
+                          QUEUE
+                          *****
+        A queue is an ordered collection of items from which items
+may be deleted at one end ( callled the 'front' of the queue ) and
+into which items may be inserted at  the other end ( called 'rear' 
+of the queue ).
+      The first element inserted into a queue is the first element
+to be removed. For  theis  reason a queue  is  sometimes  called a 
+'FIFO'( first-in,first-out ) list as opposed to a stack,which is a
+'lifo'(last-In,first-out)list. Examples of a queue abound  in  the 
+real world. A line at a bank or at a bus stop and a  group of cars
+waiting at a toll booth are all familiar examples of queues.
+
+         Three primitive operations can be applied to a queue. The 
+operation 'insert' inserts a item  at  the  rear of the queue. The
+operation 'delete' removes a item  at the  fornt of the queue. 
+
+
+/* Queue example */
+
+#include<stdio.h>
+#include<conio.h>
+#define MAX 10
+
+/* Queue structure definition */
+
+struct queue
+{
+   int array[10];
+   int front,rear;
+};
+
+/* To check Queue full or not.If Queue is full it will return 1.
+otherwise it will return 0 */
+
+int full(struct queue *q)
+{
+   if(q->rear==MAX-1)
+    return 1;
+    return 0;
+}
+
+/* To check Queue empty or not.If Queue is empty it will return 1.
+otherwise it will return 0 */
+
+int empty(struct queue *q)
+{
+   if(q->front==q->rear)
+   return 1;
+   return 0;
+}
+
+/* To insert a element into the Queue */
+
+void insert(struct queue *q,int x)
+{
+    if(full(q))
+    {
+      printf("QUEUE IS FULL");
+      exit();
+    }
+
+   if(q->front==-1)
+   q->front++;
+
+   q->rear++;
+   q->array[q->rear]=x;
+
+}
+
+/* To delete a element from Queue */
+
+int delete(struct queue *q)
+{
+   int x;
+
+   if(empty(q))
+   {
+    printf("QUEUE IS EMPTY");
+    exit();
+   }
+
+   x=q->array[q->front];
+   q->front++;
+
+   if(q->front>q->rear)
+   q->front=q->rear=-1;
+
+   return x;
+
+}
+
+main()
+{
+     int x;
+     queue q;
+
+        q.rear=-1;
+        q.front=-1;
+
+     clrscr();
+
+        insert(&q,10);
+        insert(&q,20);
+
+        x=delete(&q);
+        printf("%d ",x);
+
+        x=delete(&q);
+        printf("%d ",x);
+
+   getch();
+}

@@ -1,0 +1,203 @@
+                              SORTING
+                              *******
+              Sorting an array into ascending order means rearranging
+the  values in the array so that the elements progressively  increase
+in value from the smallest to the largest. By the end of such a sort,
+the  minimum  value will be  contained in the  first  location of the
+array,while the maximum value will be found in the last  location  of
+array,with values that progressively increase in between.This prosses
+rearranging the values in some known order is called 'SORTING'.
+
+LENIAR SORT:-
+           if we wanted to sort an array of n elements into assending
+order,we could do so by  performing a  successive  comparison of each
+of the elements of the array. We could  begin by  comparing the first
+element in the  array  against the  second. If the first element were
+greater in value than the second,then we could simply "swap" the  two
+values  in the  array;that is,exchange  the values contained in these 
+two locations.
+        Next,we could campare the first element in the array  against
+the third  element in the array. Once  again,if the first  value were
+greater than the third,we could exchange these  two values. Otherwise
+we would leave them alone.Now we would have the smallest of the first
+three elements contained in the first location of the array.
+        If we repeated the above process for the  remaining  elements 
+in the array comparing the  first  element  against  each  successive 
+element,and exchanging their values if the former  were  larger  than
+the latter then the smallest value of the  entire  array  would be in
+the first location of the array by end of the process.
+        If  we  now did the same thing with the second element of the
+array,that is compared it against the third element,then against  the
+fourth,and so on,and if we exchanged any values that were out of order
+we would then end up with the next  smallest  value  contained in the
+second location of the array when the process was completed.
+       It should now be   clear how we can go about sorting the array 
+by performing these successive comparisons and  exchanges as  needed.
+The process will stop after we have compared the next-to-last element
+of the array against the last and have interchanged their  values if
+required,At that point,the entire array will have been  sorted  into
+ascending order.
+BUBBLE SORT:-
+           if we wanted to sort an array of n elements into assending
+order,we could do so by  performing a  successive  comparison of each
+of the elements of the array. We could  begin by  comparing the first
+element in the  array  against the  second. If the first element were
+greater in value than the second,then we could simply "swap" the  two
+values  in the  array;that is,exchange  the values contained in these 
+two locations.
+        Next,we could campare the second element in the array against
+the third  element in the array. Once again,if the second  value were
+greater than the third,we could exchange these  two values. Otherwise
+we would leave them alone.Now we would have the largest  of the first
+three elements contained in the third location of the array.
+        If we repeated the above process for the  remaining  elements 
+in the array comparing the  each  element  against  next  successive 
+element,and exchanging their values if the former  were  larger  than
+the latter then the largest value of the  entire  array  would be in
+the last location of the array by end of the process.
+        If  we  now did the same thing with the first element of the
+array,that  is  compared it  against  the second element,then second
+against the third ,and so on,and if we exchanged any values that were
+out of order we would then end up with the next largest value contained
+in the before one location of last location of the array when the
+process was completed.
+       It should now be clear how we can go about sorting the array 
+by performing these successive comparisons and exchanges as needed.
+The process will stop after we have compared the first-to-last-1
+element of the array against the last and have interchanged their
+values if required,At that point,the entire array will have been
+sorted into ascending order.
+        
+INSERTION SORTING:-
+              The insertion sort inserts the elements in sorted order
+at time of element  insertion into the array.so need to rearrange the
+values in the array.Suppose we want ot insert a value into the array,
+first it search sequentialy form back wards in the array.
+            First it compare with last element and new element,if new  
+last  element  is greater than new element it  will  shift  the  last 
+element into one location back in array. Next  it  will  compare with
+second largest value.and so on.
+            This process will continue upto  new element  is  smaller
+than the compared element.If the new element is larger than the  
+compared element it will stop the search and insert the new element 
+in to the next location of last compared element.
+
+         So in Insertion sorting at the time of insertion of elements
+it will be sorted.
+
+/* Leniar Sort Example */
+
+#include<stdio.h>
+#include<conio.h>
+
+main()
+{
+int array[10],i,j,temp;
+
+    clrscr();
+
+        for(i=0;i<10;i++)
+        {
+          printf("Enter A Number ");
+          scanf("%d",&array[i]);
+        }
+
+    clrscr();
+
+    for(i=0;i<10;i++)
+    printf("%d ",array[i]);
+
+    printf("\n");
+
+    for(i=0;i<10;i++)
+     for(j=i+1;j<10;j++)
+      if(array[i]>array[j])
+        {
+         temp=array[i];
+         array[i]=array[j];
+         array[j]=temp;
+        }
+
+    for(i=0;i<10;i++)
+    printf("%d ",array[i]);
+
+ getch();
+
+}
+
+
+
+/* Bubble Sort Example */
+
+#include<stdio.h>
+#include<conio.h>
+
+main()
+{
+int array[10],i,j,temp;
+
+    clrscr();
+
+        for(i=0;i<10;i++)
+        {
+          printf("Enter A Number ");
+          scanf("%d",&array[i]);
+        }
+
+    clrscr();
+
+    for(i=0;i<10;i++)
+    printf("%d ",array[i]);
+
+    printf("\n");
+
+    for(i=0;i<10;i++)
+     for(j=0;j<9-i;j++)
+      if(array[j]>array[j+1])
+        {
+         temp=array[j];
+         array[j]=array[j+1];
+         array[j+1]=temp;
+        }
+
+    for(i=0;i<10;i++)
+    printf("%d ",array[i]);
+
+ getch();
+
+}
+
+/* Insertion Sorting Example */
+
+#include<stdio.h>
+#include<conio.h>
+
+int main(void)
+{
+int array[10],i=0,k,num;
+ k=-1;
+  while(k<9)
+  {
+    printf("Enter a Number");
+    scanf("%d",&num);
+
+      k++;
+
+        while(array[i]>num&&i>=0)
+        {
+              array[i+1]=array[i];
+              i--;
+        }
+
+              i++;
+
+              array[i]=num;
+
+              i=k;
+   }
+
+     for(i=0;i<10;i++)
+     printf("%d  ",array[i]);
+
+     getch();
+}

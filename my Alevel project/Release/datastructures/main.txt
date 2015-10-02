@@ -1,0 +1,61 @@
+                  Introduction to data structures
+                  *******************************
+        The efficiency,clarity and complexity of a programme
+for  the  solution of a given the selected  data structures.
+It  is the  purpose  of  this  project  to  present the most
+important data structures,to explain concepts with graphically.
+Under what conditions which data structures can be used most
+effectively and to indicate which programming techniques are
+most desirable for working with a particular data structure.
+
+        This project "Introduction To Data Structures" explains
+concepts of data structures,searching and sorting techniques
+with graphically for better understanding to who are beginners
+of data structures.
+
+        In the study of data structures, it is necessary not
+only to define the  concept of a data structure  itself  but
+also state how the data structure can be stored and manipulated,
+with this purpose in mind, several considerations are appropriate.
+First,using the general definitions of the concept of a data
+structure  and  illustrating  the  concepts with graphically.
+Methods of storing structures can be presented.
+
+        The actual description of algorithms for manipulating
+data structures stored in a computer is given using 'c' language.
+ 
+The main feature of this project is the user can input his/her
+relevant data for illustrations.
+ 
+About Project
+-------------
+The purpose of this project "Introduction To Data Structures"
+is better understanding concepts of data structures and its
+manipulations.
+
+  	This project explains most important data structures
+and its operations step by step with graphics. This  project
+also explains most important searching and sorting techniques
+with graphics.
+
+        The selected data structures and searching and sorting
+techniques are linear search,binary search,linear sort, binary
+sort and insertion sort, singly linked list,doubly linked list,
+stack,queue and its operations, binary tree and its traversals,
+infix to prefix,infix to post fix conversions and evaluation of
+postfix expression. All these explained with graphics.
+
+        The actual definition of structures  and algorithms and
+concepts is provided in online help.
+
+        The project has  many features to be used with friendly
+environment. This  project provides  graphical  user  interface
+environment so the user can use this software  very  easily. In
+this project all menus provided with  hotkeys. The  hotkeys all
+are underlined for easy recognition.  The  user  can  select an
+option  with  up/down  arrow  keys  followed  by  enter  key or
+appropriate hotkey.
+  
+By using of this software the users definitely get better idea
+about particular data structure and its operations.
+ 

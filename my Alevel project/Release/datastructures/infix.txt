@@ -1,0 +1,325 @@
+
+                    INFIX,POSTFIX,PREFIX
+                    ********************        
+
+             Consider the sum of A and B.We think of applying the
+operator '+' to the operands A and B and write  the  sum  as A+B.
+This perticular  representation is  called 'Infix'. There are two
+alternate notations for expressing the sum of A and  B  using the 
+symbols A,B,and +. These are
+
+        +AB     prefix
+        AB+     postfix
+
+        The  prefixes  "pre-","post-","in-"refer to the relative
+position  of the operator  with  respect to the two operands. In
+prefix notation the operator precedes the two operands,in postfix
+notation  the  operator  follows  the  two operands,and in infix 
+notation  the  operator is  between two operands.
+        Let us consider some additional examples. The evaluation
+of the expression A+B*C,as written in  standard infix  notation,
+requires Knowledge of which of the two operations,+ or *,is to be
+performed first.In case of + and * we "know" that multiplication
+is to be done before addition.Thus A+B*C is interpreted as A+(B*C)
+unless otherwise specified. We  say  that  multiplication  takes
+'precedence' over addition.Suppose that we want to rewrite A+B*C
+in postfix.Applying the rules of precedence,we first convert the
+portion of the  expression that is  evaluated  first,namely  the
+multiplication.
+                ABC*+
+        The only rules to remember during the conversion process
+are that operations with highest precedence are converted first
+and that after a portion of the expression has been converted to
+postfix it is to be treated as a single operand.
+
+/* Examples for infix expression to prefix,postfix and evaluation
+of postfix expression.
+
+note:- Please see stack operations (push,pop,top,empty,full
+functions) are defined in stack.hlp file. */
+
+/* To do arithamatic operations  */
+
+int evalexp(int od1,int od2,char or)
+{
+        switch(or)
+        {
+                case '+':
+                        return(od1+od2);
+                case '-':
+                        return(od1-od2);
+                case '*':
+                        return(od1*od2);
+                case '/':
+                        return(od1/od2);
+                case '%':
+                        return(od1%od2);
+        }
+        return 0;
+}
+
+/* To check given charecter is operand or not. */
+
+int operand(char ch)
+{
+        if(ch>='0'&&ch<='9'||ch>='a'&&ch<='z'||ch>='A'&&ch<='Z')
+        return 1;
+        else
+        return 0;
+}
+
+/* To check given expression is valid or not. */
+
+int validexp(char *s)
+{
+    int od=0,or=0,i,j=0;
+    char exp[20];
+
+        for(i=0;s[i]!=0;i++)
+        {
+        if(s[i]!='['&&s[i]!=']'&&s[i]!='{'&&s[i]!='}'&&s[i]!='('&&s[i]!=')')
+         {
+           if(operand(s[i]))
+           {
+              od++;
+
+            if(od-1!=or)
+                return 0;
+           }
+          else
+          or++;
+        }
+        else
+        {
+        if(s[i]==']')
+            if(exp[j]!='[')
+                return 0;
+       else
+        {
+                j--;
+                continue;
+        }
+
+        if(s[i]=='}')
+                if(exp[j]!='{')
+                return 0;
+        else
+        {
+                j--;
+                continue;
+        }
+        if(s[i]==')')
+                if(exp[j]!='(')
+                return 0;
+        else
+        {
+                j--;
+                continue;
+        }
+
+        j++;
+        exp[j]=s[i];
+
+}     }
+        if(od-1!=or)
+        return 0;
+
+
+         if(j>0)
+         return 0;
+         return 1;
+}
+
+
+/* To get precedence of given operator.
+   mode  0 for postfix,mode 1 for prefix */
+
+int precedence(char ch,int mode)
+{
+        if(ch==']'||ch=='}'||ch==')')
+        {
+                if(mode==0)
+                return 1;         //postfix
+                else
+                return 10;       //prefix
+        }
+
+        if(ch=='*'||ch=='/'||ch=='%')
+        return 8;
+
+        if(ch=='-'||ch=='+')
+        return 4;
+
+        if(ch=='('||ch=='['||ch=='{')
+        {
+        if(mode==0)
+        return 10;
+        else
+        return 1;
+        }
+        return 0;
+}
+
+/* Example for infix to prefix expression */
+
+#include<stdio.h>
+#include<conio.h>
+
+main()
+{
+ char infix[30];
+ int i;
+ struct stack s1,s2;
+ 
+    s1.top=-1;
+    s2.top=-1;
+
+    clrscr();
+
+    printf("Enter infix expression");
+    scanf("%s",infix);
+
+    if(!validexp(infix))
+    {
+      printf("NOT A VALID EXPRESSION");
+      exit();
+    }
+   
+   for(i=0;infix[i]!=0;i++);
+
+   for(i=i-1;i>=0;i--)
+   {
+
+     if(operand(infix[i])
+     {
+       push(&s1,infix[i]);
+       continue;
+     }
+
+     if(infix[i]=='}'||infix[i]==']'||infix[i]==')')
+     {
+        push(&s2,infix[i]);
+        continue;
+     }
+
+     if(infix[i]=='{'||infix[i]=='('||infix[i]=='[')
+     {
+        while(top(&s2)!='}'&&top(&s2)!=']'&&top(&s2)!=')')
+        push(&s1,pop(&s2));
+        pop(&s2);
+        continue;
+     }
+
+     while(precedence(infix[i],1)<=precedence(top(&s2),1))
+         push(&s1,pop(&s2));
+
+      push(&s2,infix[i]);
+  }
+
+     while(!empty(&s2))
+     push(&s1,pop(&s2));
+
+     while(!empty(&s1)
+     printf("%c",pop(&s1));
+
+getch();
+}
+
+/* Example for infix to postfix expression */
+
+#include<stdio.h>
+#include<conio.h>
+
+main()
+{
+ int i;
+ char infix[30];
+ struct stack s1;
+ 
+    s1.top=-1;
+
+    clrscr();
+
+    printf("Enter infix expression");
+    scanf("%s",infix);
+
+    if(!validexp(infix))
+    {
+      printf("NOT A VALID EXPRESSION");
+      exit();
+    }
+   
+   for(i=0;infix[i]!=0;i++)
+   {
+
+     if(operand(infix[i])
+     {
+       printf("%c",infix[i]);
+       continue;
+     }
+
+     if(infix[i]=='{'||infix[i]=='['||infix[i]=='(')
+     {
+        push(&s1,infix[i]);
+        continue;
+     }
+
+     if(infix[i]=='}'||infix[i]==')'||infix[i]==']')
+     {
+        while(top(&s1)!='{'&&top(&s1)!='['&&top(&s1)!='(')
+        printf("%c",pop(&s1));
+        pop(&s2);
+        continue;
+     }
+
+     while(precedence(infix[i],0)<=precedence(top(&s1),0))
+         printf("%c",pop(&s1));
+
+      push(&s1,infix[i]);
+  }
+
+
+     while(!empty(&s1)
+     printf("%c",pop(&s1));
+
+getch();
+}
+
+
+/* Evaluation of postfix Expression */
+
+#include<stdio.h>
+#include<conio.h>
+
+main()
+{
+ int i,od1,od2,ans;
+ char postfix[30];
+ struct stack s;
+
+     s.top=-1;
+
+     clrscr();
+
+     printf("Enter postfix expression ");
+     scanf("%s",postfix);
+
+  for(i=0;postfix[i]!=0;i++)
+  {
+    if(operand(prefix[i]))
+    {
+      push(&s,prefix[i]-48)
+      continue;
+    }
+
+     od2=pop(&s);
+     od1=pop(&s);
+
+    ans=evalexp(od1,od2,prefix[i]);
+    push(&s,ans);
+  }
+
+  printf("Expression value is %d",pop(s));
+
+getch();
+}

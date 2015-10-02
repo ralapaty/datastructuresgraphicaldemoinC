@@ -1,0 +1,229 @@
+/*
+Concepts of link lists see in linklist.hlp file.
+Example for Double linked list creation and insertion of a node,
+deletion of a node in a list
+*/
+
+#include<stdio.h>
+#include<conio.h>
+#include<alloc.h>
+
+/* list structure definition */
+
+struct node
+{
+ int info;
+ struct node *pre,*next;
+};
+
+/* Destroy the list */
+
+void freelist(node *head)
+{  node *p;
+   while(head)
+   {
+      p=head;
+      head=head->next;
+      free(p);
+   }
+}
+
+/* To create a list */
+
+node *create(node *head)
+{
+   node *p,*new;
+   int x;
+
+   printf("Enter info ");
+   scanf("%d",&x);
+
+   if(head!=0)
+   freelist(head);
+
+     head=(node*)malloc(sizeof(node));
+     head->info=x;
+     head->next=0;
+     head->pre=0;
+   
+
+  p=head;
+
+  while(1)
+  {
+     printf("Enter info(0 exit) ");
+     scanf("%d",&x);
+
+     if(x==0)
+     break;
+
+     p->next=(node*)malloc(sizeof(node));
+     p->next->info=x;
+     p->next->pre=p;
+     p->next->next=0;
+     p=p->next;
+ }
+ return head;
+}
+
+/* To insert a node in a list */
+
+node *insertnode(node *head)
+{
+   int x,pos,count=0,i;
+   node *p,*temp;
+
+   if(head==0)
+   {
+     printf("List is empty");
+     return head;
+   }
+
+   printf("Enter info ");
+   scanf("%d",&x);
+
+   printf("Enter insertion position ");
+   scanf("%d",&pos);
+
+   for(p=head;p!=0;p=p->next)
+   count++;
+   
+   if(pos==0||pos>(count+1))
+   {
+     printf("Invalid position ");
+     return head;
+   }
+
+
+     temp=(node*)malloc(sizeof(node));
+     temp->info=x;
+     temp->pre=0;
+     temp->next=0;
+
+   p=head;
+
+   if(pos==1)
+   {
+      head->pre=new;
+      new->next=head;
+      head=temp;
+      return head;
+   }
+
+   if(pos==(count+1))
+   {
+     for(;p->next!=0;p=p->next);
+     p->next=temp;
+     temp->pre=p;
+     return head;
+   }
+
+
+   for(i=1;i<pos;i++)
+   p=p->next;
+
+   temp->next=p->next;
+   p->next->pre=temp;
+   temp->pre=p;
+   p->next=temp;
+
+   return head;
+}
+
+/* To delete a node in a list */
+node *deletenode(node *head)
+{
+   node *p,*temp;
+   int count,i,pos;
+
+      if(head==0)
+      {
+        printf("EMPTY LIST");
+        return head;
+      }
+
+        printf("Enter position to delete ");
+        scanf("%d",&pos);
+
+       for(p=head;p!=0;p=p->next)
+       count++;
+
+       if(count>pos||pos==0)
+       {
+         printf("invalid position ");
+         return head;
+       }
+
+       if(pos==1)
+       {
+         p=head;
+         head=head->next;
+         free(p);
+         return head;
+       }
+
+      p=head;
+
+      for(i=1;i<pos;i++)
+      p=p->next;
+
+      temp=p->next;
+      p->next=p->next->next;
+      p->next->pre=p;
+      free(temp);
+
+      return head;
+ }
+
+  /*  To display the list nodes */
+
+  void display(node *p)
+  {
+    while(p)
+    {
+      printf("%d ",p->info);
+      p=p->next;
+    }
+   getch();
+  }
+
+/* Example for double linked list */
+
+main()
+{
+  node *head=0;
+  int choice;
+
+    while(1)
+    {
+       clrscr();
+       printf("\n\n       DOUBLE  LINKED LIST\n\n)
+       printf("\n1.CREATE\n2.INSERT\n3.DELETE\n4.DISPLAY\n5.EXIT");
+       printf("\nEnter your choice ");
+       scanf("%d",&choice);
+
+       switch(choice)
+       {
+          case 1:
+                  head=create(head);
+                  display(head);
+                  break;
+          case 2:
+                  head=insertnode(head);
+                  display(head);
+                  break;
+          case 3:
+                  head=deletenode(head);
+                  display(head);
+                  break;
+          case 4:
+                  display();
+                  break;
+          case 5:
+                  freelist(head);
+                  exit();
+       }
+  }
+
+getch();
+}

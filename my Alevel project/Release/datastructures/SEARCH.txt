@@ -1,0 +1,148 @@
+                            SEARCHING
+                            *********
+               A search algorthm is an algorithm that accepts an argument
+'a' and tries to find a record whose key is 'a'.The algorithm may  return 
+the entire record or,more commonly it may return a pointer to that record
+It is possible that the search for a particular argument  in a  table  is 
+unsuccessful;that is,there is no record in the table with  that  argument 
+as its key.In such case the algorithm may return a special "null record".
+
+SEQUENTIAL SEARCHING:-
+
+       The simplest form of a search is the sequential search.This search
+is applicable to a table organized either as an array or as a linked list  
+Let assumes that K is an array of n keys.k[0] through k[n-1]. Let  assume
+that  KEY is a search argument. We  wish  to retun the smallest integer i
+such that k[i] equals KEY is such an i exists and -1 otherwise.
+
+      The algoritham for doing this as follows:
+        for(i=0;i<n;i++)
+           if(KEY ==k[i])
+              return i;
+           return -1;
+The algoritham examines each key  in  turn;upon finding one that  matches
+the search argument,its  index  is returned. If  no  match is found,-1 is
+returned.
+
+BINARY SEARCH:-
+
+      The most efficient method of searching a sequential table with  out
+use of auxiliary indices or tables is  the  binary search. Basically, the
+argument is compared with the key of the middle element of the  table. If
+they are eqal,the search ends succesfully;otherwise,either the  upper  or
+lower half of the table must be searched in a similarm manner.
+
+    If the middle element is greater than the item being searched for,the
+search process is repeated in the first half  of the array;otherwise,this
+process is reapeted in the second half. Note  that each time a comparison
+is made,the number of elements yet to be searched is cut in half.For large
+arrays,this method is superior to the  sequential  search in  which  each
+comparison reduces the number of elements yet to be searched by only one.
+Because of the division of the array to be searched into two equal parts,
+this  method is called the binary search.
+
+       Unfortunatly,the binary search  algoritham can only be used if the
+table is sorted as an array.This is because it makes use of the fact that
+the  indices of  array  elements are consecutive integers.For this reason
+the binary search is practically useless in situvations where  there  are 
+many insertions or deletions,so that an array structure is inappropriate.
+
+/*Leniar Search example*/
+
+#include<stdio.h>
+#include<conio.h>
+
+void main()
+{
+int array[10],i,key,flag=0;
+
+        clrscr();/* Clear The Screen */
+
+        for(i=0;i<10;i++)     /* Enter Values To The List */
+        {
+                printf("ENTER A NUMBER");
+                scanf("%d",&array[i]);
+        }
+
+        clrscr();
+
+        for(i=0;i<10;i++)     /* Display All Values From List */
+        printf("%d ",array[i]);
+
+                /* Taking Searching Element */
+                printf("\n\nEnter Element To Be Search ");
+                scanf("%d",&key);
+
+        for(i=0;i<10;i++)
+          if(key==array[i])
+          {
+            flag=1; /* Element Found*/
+            printf("\nSearch is succesfull.\n%d Found At Location %d",key,i+1);
+            break;
+          }
+
+           if(flag==0) /* If Element Not Found */
+           printf("\nSearch is unsuccesfull.\n%d Not Found in List",key);
+
+                getch();  /* Wait For A Key */
+ }
+
+
+
+
+/*Binary Search example*/
+
+#include<stdio.h>
+#include<conio.h>
+
+void main()
+{
+int array[10],i,key,flag=0,low,up,mid;
+
+        clrscr();/* Clear The Screen */
+
+        printf("Enter 10 Elements In Sorted Order\n");
+        for(i=0;i<10;i++)     /* Enter Values To The List */
+        {
+          scanf("%d",&array[i]);
+        }
+
+        clrscr();
+
+        for(i=0;i<10;i++)     /* Display All Values From List */
+        printf("%d ",array[i]);
+
+                /* Taking Searching Element */
+                printf("\n\nEnter Element To Be Search ");
+                scanf("%d",&key);
+      low=0;
+      up=9;
+
+     while(low<=up)
+     {
+       mid=(low+up)/2;
+
+      if(array[mid]==key)
+      {
+        flag=1; /* Element Found*/
+        printf("\nSearch is succesfull.\n%d Found At Location %d",key,mid+1);
+        break;
+      }
+       
+      /* Search Key Greater Than array[mid] Value Set low=mid+1 */
+      if(array[mid]<key)
+        low=mid+1;
+
+      /* Search Key less Than array[mid] Value Set low=mid-1 */
+      if(array[mid]>key)
+        up=mid-1;
+     }
+
+     /* If Search Key Not Found */
+     if(flag==0)
+     printf("\nSearch is unsuccesfull.\n%d Not Found In List",key);
+
+     
+     getch();  /* Wait For A Key */
+
+ }

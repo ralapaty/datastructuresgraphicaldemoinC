@@ -1,0 +1,114 @@
+                               STACK
+                               *****
+           A stack is an ordered collection of items into which new
+items may be inserted and from which items may be  deleted  at  one 
+end,called the 'top, of the stack.
+           Unlike  that  of  the array, the definition of the stack 
+provides for the insertion and deletion of items,so that a stack is
+a dynamic, constantly changing object.The definition specifies that
+a single end of the stack (in which case the top of the stack moves
+upward to correspond to the new highest element),or items which are
+at  the  top of the stack  may be removed (in which case top of the 
+stack moves downward to correspond to the new highest element). The
+most important  attribute of stack,that the  last element  inserted
+into a stack is the first element deleted. For  this reason a stack
+a stack is sometimes called a last-in,first-out(or LIFO)list.
+           The  two  changes which can be made to a stack are given
+special names. When an item is added to a stack,it is 'pushed' onto 
+the stack,and when an item is removed,it is 'poped' form the stack.
+
+/* Stack Example */
+
+#include<stdio.h>
+#include<conio.h>
+#define MAX 10
+
+/* Stack structure definition */
+struct stack
+{
+int  array[10];
+int top;
+};
+
+/* To check  stack is full or not .if it is full it returns 1.
+otherwise it returns 0 */
+
+int full(struct stack *s)
+{
+  if(s->top==MAX-1)
+  return 1;
+  return 0;
+}
+
+/* To check  stack is empty or not .if it is empty it returns 1.
+otherwise it returns 0 */
+
+int empty(struct stack *s)
+{
+  if(s->top==-1)                         
+  return 1;
+  return 0;
+}
+
+/* pushing one element into the stack */
+
+void push(struct stack *s,int x)
+{
+   if(full(s))  /*to check if stack is full or not */
+   {
+     printf("STACK IS FULL");
+     exit();
+   }
+   s->top++;
+   s->array[s->top]=x;
+  return;
+}
+
+/* pop one element from stack */
+
+int  pop(struct stack *s)
+{
+   if(empty(s))  /* to check if stack is empty or not */
+   {
+     printf("STACK IS EMPTY");
+     exit();
+   }
+   s->top--;
+   return s->array[s->top+1];
+}
+
+/* To get copy of top element in the stack */
+
+int top(struct stack *s)
+{
+   if(empty(s))
+   {
+     printf("STACK IS EMPTY");
+     exit();
+   }
+  return s->array[s->top];
+}
+
+main()
+{
+   int x;
+   stack s;
+   s.top=-1;
+
+
+        clrscr();
+
+        push(&s,10);
+        push(&s,20);
+
+      x=top(&s);
+      printf("%d ",x);
+
+      x=pop(&s);
+      printf("%d ",x);
+
+      x=pop(&s);
+      printf("%d ",x);
+
+getch();
+}
